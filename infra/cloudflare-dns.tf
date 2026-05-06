@@ -8,6 +8,14 @@ resource "cloudflare_record" "root_dns" {
   proxied = true
 }
 
+resource "cloudflare_record" "www_dns" {
+  zone_id = var.cloudflare_zone_id
+  name    = "www"
+  content = cloudflare_zero_trust_tunnel_cloudflared.main.cname
+  type    = "CNAME"
+  proxied = true
+}
+
 
 resource "cloudflare_record" "api_dns" {
   zone_id = var.cloudflare_zone_id

@@ -20,7 +20,11 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "main" {
 
   config {
     ingress_rule {
-      hostname = "${var.domain}"
+      hostname = var.domain
+      service  = "http://saas-portal.prod.svc.cluster.local:3000"
+    }
+    ingress_rule {
+      hostname = "www.${var.domain}"
       service  = "http://saas-portal.prod.svc.cluster.local:3000"
     }
     ingress_rule {
