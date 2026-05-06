@@ -26,11 +26,6 @@ resource "kubernetes_stateful_set_v1" "qdrant_prod" {
             container_port = 6333
           }
 
-          volume_mount {
-            name       = "qdrant-storage"
-            mount_path = "/qdrant/storage"
-          }
-
           resources {
             requests = {
               cpu    = "500m"
@@ -45,22 +40,6 @@ resource "kubernetes_stateful_set_v1" "qdrant_prod" {
       }
     }
 
-    volume_claim_template {
-      metadata {
-        name = "qdrant-storage"
-      }
-
-      spec {
-        access_modes       = ["ReadWriteOnce"]
-        storage_class_name = "standard-rwo"
-
-        resources {
-          requests = {
-            storage = "50Gi"
-          }
-        }
-      }
-    }
   }
 }
 
