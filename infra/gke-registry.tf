@@ -69,11 +69,15 @@ resource "google_container_cluster" "primary" {
 # GKE Node Pool
 # --------------------------------------------------
 resource "google_container_node_pool" "primary_nodes" {
-  name       = "primary-node-pool"
-  location   = var.zone
-  cluster    = google_container_cluster.primary.name
-  project    = var.GCP_PROJECT_ID
-  node_count = 1
+  name     = "primary-node-pool"
+  location = var.zone
+  cluster  = google_container_cluster.primary.name
+  project  = var.GCP_PROJECT_ID
+
+  autoscaling {
+    min_node_count = 1
+    max_node_count = 2
+  }
 
   node_config {
     machine_type = "e2-standard-2"
