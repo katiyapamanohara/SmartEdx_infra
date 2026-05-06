@@ -74,4 +74,10 @@ variable "cloudflare_zone_id" {
   sensitive   = true
 }
 
+variable "domain" {
+  description = "Primary domain name"
+  type        = string
+  default     = "tehdehzzlw.space"
+}
+
 
