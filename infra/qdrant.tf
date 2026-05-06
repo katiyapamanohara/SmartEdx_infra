@@ -1,4 +1,4 @@
-resource "kubernetes_stateful_set" "qdrant_prod" {
+resource "kubernetes_stateful_set_v1" "qdrant_prod" {
   metadata {
     name      = "qdrant"
     namespace = "prod"
@@ -64,7 +64,7 @@ resource "kubernetes_stateful_set" "qdrant_prod" {
   }
 }
 
-resource "kubernetes_service" "qdrant_prod_service" {
+resource "kubernetes_service_v1" "qdrant_prod_service" {
   metadata {
     name      = "qdrant"
     namespace = "prod"
@@ -81,6 +81,6 @@ resource "kubernetes_service" "qdrant_prod_service" {
     type = "ClusterIP"
   }
 
-  depends_on = [kubernetes_stateful_set.qdrant_prod]
+  depends_on = [kubernetes_stateful_set_v1.qdrant_prod]
 }
 
