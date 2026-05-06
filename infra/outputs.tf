@@ -1,9 +1,3 @@
-output "tunnel_token" {
-  description = "The secret token for the Cloudflare tunnel"
-  value       = cloudflare_zero_trust_tunnel_cloudflared.main.tunnel_token
-  sensitive   = true
-}
-
 output "gke_cluster_name" {
   value = google_container_cluster.primary.name
 }

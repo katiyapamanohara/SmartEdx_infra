@@ -74,5 +74,4 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         working-directory: ${{ env.WORKING_DIR }}
         run: |
-          echo "ArgoCD URL: https://argocd.ecofutures.io"
           echo "ArgoCD Admin Password: $(terraform output -raw argocd_admin_password)"

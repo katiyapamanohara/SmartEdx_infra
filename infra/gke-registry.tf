@@ -61,7 +61,38 @@ resource "google_container_cluster" "primary" {
   }
 
   depends_on = [
-
     google_project_service.services
   ]
+}
+
+# --------------------------------------------------
+# GKE Node Pool
+# --------------------------------------------------
+resource "google_container_node_pool" "primary_nodes" {
+  name       = "primary-node-pool"
+  location   = var.zone
+  cluster    = google_container_cluster.primary.name
+  project    = var.GCP_PROJECT_ID
+  node_count = 2
+
+  node_config {
+    machine_type = "e2-standard-2"
+    disk_size_gb = 50
+    disk_type    = "pd-standard"
+
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/cloud-platform"
+    ]
+
+    workload_metadata_config {
+      mode = "GKE_METADATA"
+    }
+  }
+
+  management {
+    auto_repair  = true
+    auto_upgrade = true
+  }
+
+  depends_on = [google_container_cluster.primary]
 }

@@ -10,6 +10,8 @@ resource "kubernetes_secret_v1" "minio_credentials" {
   }
 
   type = "Opaque"
+
+  depends_on = [kubernetes_namespace_v1.prod]
 }
 
 resource "kubernetes_persistent_volume_claim_v1" "minio_data" {
@@ -27,6 +29,8 @@ resource "kubernetes_persistent_volume_claim_v1" "minio_data" {
       }
     }
   }
+
+  depends_on = [kubernetes_namespace_v1.prod]
 }
 
 resource "kubernetes_deployment_v1" "minio" {

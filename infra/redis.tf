@@ -53,6 +53,8 @@ resource "kubernetes_deployment_v1" "redis_prod" {
       }
     }
   }
+
+  depends_on = [kubernetes_namespace_v1.prod]
 }
 
 resource "kubernetes_service_v1" "redis_prod" {
@@ -73,6 +75,8 @@ resource "kubernetes_service_v1" "redis_prod" {
 
     type = "ClusterIP"
   }
+
+  depends_on = [kubernetes_namespace_v1.prod]
 }
 
 # -----------------------------
@@ -115,18 +119,8 @@ resource "kubernetes_deployment_v1" "redis_commander" {
 
           env {
             name  = "REDIS_HOSTS"
-            value = "prod:redis-master.prod.svc.cluster.local:6379,dev:redis-master.dev.svc.cluster.local:6379"
+            value = "prod:redis-master.prod.svc.cluster.local:6379"
           }
-
-          # Optional: Basic Auth (if needed later)
-          # env {
-          #   name = "HTTP_USER"
-          #   value = "admin" 
-          # }
-          # env {
-          #   name = "HTTP_PASSWORD"
-          #   value = "secret"
-          # }
 
           resources {
             requests = {
@@ -142,6 +136,8 @@ resource "kubernetes_deployment_v1" "redis_commander" {
       }
     }
   }
+
+  depends_on = [kubernetes_deployment_v1.redis_prod]
 }
 
 resource "kubernetes_service_v1" "redis_commander" {
@@ -163,4 +159,6 @@ resource "kubernetes_service_v1" "redis_commander" {
 
     type = "ClusterIP"
   }
+
+  depends_on = [kubernetes_namespace_v1.prod]
 }

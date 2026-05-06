@@ -1,0 +1,18 @@
+# Terraform files
+*.tfvars
+*.tfplan
+
+# Crash log files
+crash.log
+
+# Exclude .terraform directory
+.terraform/
+
+# Ignore override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore CLI configuration files
+.env
