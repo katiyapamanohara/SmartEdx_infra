@@ -23,13 +23,13 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "main" {
       hostname = var.domain
       service  = "http://saas-portal.prod.svc.cluster.local:3000"
     }
+    ingress_rule {
+      hostname = "institute.${var.domain}"
+      service  = "http://institute-portal.prod.svc.cluster.local:3000"
+    }
 
     ingress_rule {
       hostname = "argocd.${var.domain}"
-      service  = "http://argo-cd-argocd-server.argocd.svc.cluster.local:80"
-    }
-    ingress_rule {
-      hostname = ".${var.domain}"
       service  = "http://argo-cd-argocd-server.argocd.svc.cluster.local:80"
     }
 
