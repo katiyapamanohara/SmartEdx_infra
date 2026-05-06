@@ -65,6 +65,13 @@ resource "cloudflare_record" "instituteservice_dns" {
   type    = "CNAME"
   proxied = true
 }
+resource "cloudflare_record" "qdrant" {
+  zone_id = var.cloudflare_zone_id
+  name    = "qdrant"
+  content = cloudflare_zero_trust_tunnel_cloudflared.main.cname
+  type    = "CNAME"
+  proxied = true
+}
 
 resource "cloudflare_record" "sassservice_dns" {
   zone_id = var.cloudflare_zone_id
