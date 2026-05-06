@@ -31,6 +31,8 @@ resource "kubernetes_persistent_volume_claim_v1" "postgres_data" {
     }
   }
 
+  wait_until_bound = false
+
   depends_on = [kubernetes_namespace_v1.prod]
 }
 
@@ -170,4 +172,6 @@ resource "kubernetes_service_v1" "postgres" {
 
     type = "ClusterIP"
   }
+
+  depends_on = [kubernetes_namespace_v1.prod]
 }

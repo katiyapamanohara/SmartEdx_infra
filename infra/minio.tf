@@ -30,6 +30,8 @@ resource "kubernetes_persistent_volume_claim_v1" "minio_data" {
     }
   }
 
+  wait_until_bound = false
+
   depends_on = [kubernetes_namespace_v1.prod]
 }
 
@@ -164,6 +166,8 @@ resource "kubernetes_service_v1" "minio_api" {
 
     type = "ClusterIP"
   }
+
+  depends_on = [kubernetes_namespace_v1.prod]
 }
 
 resource "kubernetes_service_v1" "minio_console" {
@@ -185,4 +189,6 @@ resource "kubernetes_service_v1" "minio_console" {
 
     type = "ClusterIP"
   }
+
+  depends_on = [kubernetes_namespace_v1.prod]
 }
