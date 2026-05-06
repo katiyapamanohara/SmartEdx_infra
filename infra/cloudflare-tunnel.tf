@@ -31,6 +31,35 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "main" {
       hostname = "institute.${var.domain}"
       service  = "http://institute-portal.prod.svc.cluster.local:3000"
     }
+    ingress_rule {
+      hostname = "api.${var.domain}"
+      service  = "http://api-gateway.prod.svc.cluster.local:3000"
+    }
+    ingress_rule {
+      hostname = "aicore.${var.domain}"
+      service  = "http://ai-core.prod.svc.cluster.local:8001"
+    }
+    ingress_rule {
+      hostname = "facial.${var.domain}"
+      service  = "http://facial-recognition.prod.svc.cluster.local:8002"
+    }
+    ingress_rule {
+      hostname = "instituteservice.${var.domain}"
+      service  = "http://institute-service.prod.svc.cluster.local:5002"
+    }
+    ingress_rule {
+      hostname = "sassservice.${var.domain}"
+      service  = "http://saas-service.prod.svc.cluster.local:5002"
+    }
+    ingress_rule {
+      hostname = "sassservice.${var.domain}"
+      service  = "http://saas-service.prod.svc.cluster.local:5002"
+    }
+    ingress_rule {
+      hostname = "voice.${var.domain}"
+      service  = "http://voice-agent.prod.svc.cluster.local:8000"
+    }
+
 
     ingress_rule {
       hostname = "argocd.${var.domain}"
