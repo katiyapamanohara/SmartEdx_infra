@@ -52,7 +52,7 @@ resource "kubernetes_stateful_set" "qdrant_prod" {
 
       spec {
         access_modes       = ["ReadWriteOnce"]
-        storage_class_name = "managed-csi"
+        storage_class_name = "standard-rwo"
 
         resources {
           requests = {
