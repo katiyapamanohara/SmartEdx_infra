@@ -36,6 +36,24 @@ resource "google_artifact_registry_repository" "docker_repo" {
 
 
 # --------------------------------------------------
+# GKE Node Service Account
+# --------------------------------------------------
+resource "google_service_account" "gke_node_sa" {
+  project      = var.GCP_PROJECT_ID
+  account_id   = "gke-node-sa"
+  display_name = "GKE Node Service Account"
+
+  depends_on = [google_project_service.services]
+}
+
+resource "google_project_iam_member" "gke_node_sa_gar_reader" {
+  project = var.GCP_PROJECT_ID
+  role    = "roles/artifactregistry.reader"
+  member  = "serviceAccount:${google_service_account.gke_node_sa.email}"
+}
+
+
+# --------------------------------------------------
 # GKE Cluster (Standard)
 # --------------------------------------------------
 resource "google_container_cluster" "primary" {
@@ -80,9 +98,10 @@ resource "google_container_node_pool" "primary_nodes" {
   }
 
   node_config {
-    machine_type = "e2-standard-2"
-    disk_size_gb = 50
-    disk_type    = "pd-standard"
+    machine_type    = "e2-standard-2"
+    disk_size_gb    = 50
+    disk_type       = "pd-standard"
+    service_account = google_service_account.gke_node_sa.email
 
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
