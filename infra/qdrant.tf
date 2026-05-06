@@ -1,10 +1,8 @@
-resource "kubernetes_stateful_set_v1" "qdrant_prod" {
+resource "kubernetes_stateful_set" "qdrant_prod" {
   metadata {
     name      = "qdrant"
     namespace = "prod"
   }
-
-  wait_for_rollout = false
 
   spec {
     service_name = "qdrant"
@@ -54,7 +52,7 @@ resource "kubernetes_stateful_set_v1" "qdrant_prod" {
 
       spec {
         access_modes       = ["ReadWriteOnce"]
-        storage_class_name = "premium-rwo"
+        storage_class_name = "managed-csi"
 
         resources {
           requests = {
@@ -66,7 +64,7 @@ resource "kubernetes_stateful_set_v1" "qdrant_prod" {
   }
 }
 
-resource "kubernetes_service_v1" "qdrant_prod_service" {
+resource "kubernetes_service" "qdrant_prod_service" {
   metadata {
     name      = "qdrant"
     namespace = "prod"
@@ -83,6 +81,6 @@ resource "kubernetes_service_v1" "qdrant_prod_service" {
     type = "ClusterIP"
   }
 
-  depends_on = [kubernetes_stateful_set_v1.qdrant_prod]
+  depends_on = [kubernetes_stateful_set.qdrant_prod]
 }
 
