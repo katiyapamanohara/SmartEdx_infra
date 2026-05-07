@@ -45,7 +45,7 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "main" {
     }
     ingress_rule {
       hostname = "instituteservice.${var.domain}"
-      service  = "http://institute-service.prod.svc.cluster.local:5002"
+      service  = "http://institute-service.prod.svc.cluster.local:5003"
     }
     ingress_rule {
       hostname = "sassservice.${var.domain}"
