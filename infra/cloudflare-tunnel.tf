@@ -33,7 +33,7 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "main" {
     }
     ingress_rule {
       hostname = "api.${var.domain}"
-      service  = "http://api-gateway.prod.svc.cluster.local:3000"
+      service  = "http://api-gateway.prod.svc.cluster.local:5001"
     }
     ingress_rule {
       hostname = "aicore.${var.domain}"
