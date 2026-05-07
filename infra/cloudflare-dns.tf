@@ -26,6 +26,14 @@ resource "cloudflare_record" "api_dns" {
 }
 
 
+resource "cloudflare_record" "minio_dns" {
+  zone_id = var.cloudflare_zone_id
+  name    = "minio"
+  content = cloudflare_zero_trust_tunnel_cloudflared.main.cname
+  type    = "CNAME"
+  proxied = true
+}
+
 resource "cloudflare_record" "argocd_dns" {
   zone_id = var.cloudflare_zone_id
   name    = "argocd"

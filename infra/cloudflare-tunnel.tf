@@ -62,6 +62,11 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "main" {
 
 
     ingress_rule {
+      hostname = "minio.${var.domain}"
+      service  = "http://minio-console.prod.svc.cluster.local:9001"
+    }
+
+    ingress_rule {
       hostname = "argocd.${var.domain}"
       service  = "http://argo-cd-argocd-server.argocd.svc.cluster.local:80"
     }
