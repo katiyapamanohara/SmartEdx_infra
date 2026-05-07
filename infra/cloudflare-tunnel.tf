@@ -63,7 +63,12 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "main" {
 
     ingress_rule {
       hostname = "minio.${var.domain}"
-      service  = "http://minio-console.prod.svc.cluster.local:9000"
+      service  = "http://minio.prod.svc.cluster.local:9000"
+    }
+
+    ingress_rule {
+      hostname = "minio-console.${var.domain}"
+      service  = "http://minio-console.prod.svc.cluster.local:9001"
     }
 
 
