@@ -27,16 +27,7 @@ resource "kubernetes_stateful_set_v1" "qdrant_prod" {
             name           = "http"
           }
 
-          resources {
-            requests = {
-              cpu    = "1"
-              memory = "1Gi"
-            }
-            limits = {
-              cpu    = "2"
-              memory = "2Gi"
-            }
-          }
+       
 
           volume_mount {
             name       = "qdrant-storage"
