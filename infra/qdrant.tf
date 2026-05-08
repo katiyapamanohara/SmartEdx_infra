@@ -30,11 +30,11 @@ resource "kubernetes_stateful_set_v1" "qdrant_prod" {
           resources {
             requests = {
               cpu    = "250m"
-              memory = "512Mi"
+              memory = "256Mi"
             }
             limits = {
               cpu    = "2"
-              memory = "2Gi"
+              memory = "1Gi"
             }
           }
 

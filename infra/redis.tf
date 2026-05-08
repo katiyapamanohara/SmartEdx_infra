@@ -40,7 +40,7 @@ resource "kubernetes_deployment_v1" "redis_prod" {
             }
             limits = {
               cpu    = "1"
-              memory = "1Gi"
+              memory = "512Mi"
             }
           }
 

@@ -126,12 +126,12 @@ resource "kubernetes_deployment_v1" "minio" {
 
           resources {
             requests = {
-              cpu    = "250m"
-              memory = "512Mi"
+              cpu    = "100m"
+              memory = "256Mi"
             }
             limits = {
               cpu    = "1"
-              memory = "2Gi"
+              memory = "512Mi"
             }
           }
         }
